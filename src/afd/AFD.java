@@ -29,13 +29,21 @@ public class AFD {
         gv.addln("qf [shape=doublecircle]\n");
 
         int tamLista = listaTokens.size();
-
+        
         if (tamLista > 0) {
             gv.addln("Inicio -> q0;");
+            int numV = 0
             for (int i = 0; i < (tamLista - 2); i++) {
-                gv.addln("q" + i + " -> q" + (i + 1) + " [label=\"" + listaTokens.get(i).getText() + "\"];");
+                if (listaTokens.get(i).getType() == 106){
+                    gv.addln("q" + numV + " -> q" + (numV + 1) + " [label=\letra + \];");
+                    gv.addln("q" + (numV+1) + " -> q" + (numV+1 ) + " [label=\letra ou digito + \];");
+                    numV = numV + 1;
+                }
+                gv.addln("q" + numV + " -> q" + (numV + 1) + " [label=\"" + listaTokens.get(i).getText() + "\"];");
+                numV = numV + 1;
+                
             }
-            gv.addln("q" + (tamLista - 2) + " -> qf [label=\"" + listaTokens.get(tamLista - 2).getText() + "\"];");
+            gv.addln("q" + (numV) + " -> qf [label=\"" + listaTokens.get(tamLista - 2).getText() + "\"];");
         }
         else {
             gv.addln("Inicio -> qf[label=\"  .\"];");
